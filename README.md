@@ -15,7 +15,7 @@ ______________________________________________________________
 
 What are the rules for FusionTXT?
 
-You can download this open-source software for 100% free! You can modify your copy, you can keep it stock, experiment with it, I really dont care. YOU CANNOT REDISTRIBUTE THIS WITH FUSION BRANDING! If you want to make your own, i really encourage you to make your own. FusionTXT is built in a way that it cannot be easily redone. It would be easier to build your own. You cannot say that you are endoursed, powered, sponsored, or partnered by FusionTXT or Wintercat Development Digital. The only way you can and should say that you are any of them is if we contact you directly through Email. We will give the proper authorizaion to say that we are partnered.
+You can download this open-source software for 100% free! You can modify your copy, you can keep it stock, experiment with it, I really don't care. YOU CANNOT REDISTRIBUTE THIS WITH FUSION BRANDING! If you want to make your own, i really encourage you to make your own. FusionTXT is built in a way that it cannot be easily redone. It would be easier to build your own. I will be trying to make a version that you can modify/redistribute soon! You cannot say that you are endorsed, powered, sponsored, or partnered by FusionTXT or Wintercat Development Digital. The only way you can and should say that you are any of them is if we contact you directly through Email. We will give the proper authorization to say that we are partnered.
 
 ______________________________________________________________
 
