@@ -60,7 +60,15 @@ if os.path.exists("dbs/installed.json"):
 else:
     print("fusion > Creating installed data...")
     apps = {
-        "desktop": False
+        "desktop": True,
+        "gchrome": False,
+        "chromium": False,
+        "mozillafirefox": False,
+        "gnugimp": False,
+        "spotify": False,
+        "vlc": False,
+        "libreoffice": False,
+        "secret app!": False
     }
     time.sleep(.5)
     print("fusion > Creating dbs/installed.json")
@@ -73,6 +81,65 @@ else:
     with open("dbs/installed.json", "r") as file:
         if ["desktop"] == False:
             print("fusion > Validated dbs/installed.json with a 100% success rate.")
+if os.path.exists("system/whois.json"):
+    print("[OK] system/whois.json")
+else:
+    print("fusion > Creating whois data...")
+    whois = {
+        "gchrome": {
+            "name": "Google Chrome",
+            "version": "139.0",
+            "description": "An internet browser developed by Google."
+        },
+        "chromium": {
+            "name": "Chromium",
+            "version": "181.0",
+            "description": "An open-source internet browser developed by Google."
+        },
+        "mozillafirefox": {
+            "name": "Mozilla Firefox",
+            "version": "118.0",
+            "description": "An internet browser developed by Mozilla."
+        },
+        "gnugimp": {
+            "name": "GNU Image Manipulation Program",
+            "version": "3.0",
+            "description": "A free and open-source raster graphics editor."
+        },
+        "spotify": {
+            "name": "Spotify",
+            "version": "1.0",
+            "description": "A digital music service that gives you access to millions of songs."
+        },
+        "vlc": {
+            "name": "VLC Media Player",
+            "version": "4.0",
+            "description": "A free and open-source, portable, cross-platform media player software."
+        },
+        "libreoffice": {
+            "name": "LibreOffice",
+            "version": "8.0",
+            "description": "A free and open-source office suite."
+        }
+    }
+    with open("system/whois.json", "w") as file:
+        json.dump(whois, file, indent=4)
+if os.path.exists("dbs/packages.json"):
+    print("[OK] dbs/packages.json")
+else:
+    print("fusion > Creating packages data...")
+    packages = [
+        "gchrome",
+        "chromium",
+        "mozillafirefox",
+        "gnugimp",
+        "spotify",
+        "vlc",
+        "libreoffice",
+        "secret app!"
+    ]
+    with open("dbs/packages.json", "w") as file:
+        json.dump(packages, file, indent=4)
 os.makedirs("system/usr", exist_ok=True)
 if os.path.isfile("system/users.json"):
     print("[OK] system/users.json")
@@ -164,9 +231,12 @@ while True:
             print("mk file (Creates a new file in the 'usr/' directory.)")
             print("ap file (Appends content to a file in the 'usr/' directory.)")
             print("read file (Reads the contents of a file in the 'system/usr/' directory.)")
+            print("pkmg (Installs packages.)")
+            print("pkmg rm (Removes a package.)")
+            print("pkmg list (Lists all installed packages.)")
     if cmdline == "neofetch":
             print(neofetch_art)
-            print(f"OS: Fusion")
+            print(f"OS: FusionTXT")
             print(f"Version: {data['version_identifier']}")
             print(f"User: {username}")
     if cmdline == "time":
@@ -246,6 +316,49 @@ while True:
             content = file.read()
             print(f"Contents of system/usr/{showdir}:")
             print(content)
-    else:
-        print(f"{cmdline} is not a valid command!")
-        print("Did you type it correctly? Is the command available? Are you authorized to use the command? Type 'help' for all valid commands.")
+    if cmdline == "pkmg":
+        while True:
+            with open("dbs/packages.json", "r") as file:
+                packages = json.load(file)
+            print(packages)
+            pkmg = input("fusion > Enter the name of the package to install: ")
+            if pkmg in packages:
+                with open("dbs/installed.json", "r") as file:
+                    installed = json.load(file)
+                if installed.get(pkmg) == True:
+                    print(f"{pkmg} is already installed.")
+                    break
+                else:
+                    installed[pkmg] = True
+                    with open("dbs/installed.json", "w") as file:
+                        json.dump(installed, file, indent=4)
+                    print(f"{pkmg} has been installed.")
+                    break
+    if cmdline == "pkmg rm":
+        while True:
+            with open("dbs/installed.json", "r") as file:
+                installed = json.load(file)
+            print(installed)
+            pkmg_rm = input("fusion > Enter the name of the package to remove: ")
+            if pkmg_rm in installed:
+                if installed.get(pkmg_rm) == False:
+                    print(f"{pkmg_rm} is not installed.")
+                    break
+                else:
+                    installed[pkmg_rm] = False
+                    with open("dbs/installed.json", "w") as file:
+                        json.dump(installed, file, indent=4)
+                    print(f"{pkmg_rm} has been removed.")
+                    break
+    if cmdline == "pkmg list":
+        with open("dbs/installed.json", "r") as file:
+            installed = json.load(file)
+        print("Installed packages:")
+        for package, status in installed.items():
+            if status == True:
+                print(f"{package} (installed)")
+            else:
+                print(f"{package} (not installed)")
+    if cmdline == "uptime":
+        boot_time = time.monotonic()
+        print(f"System uptime: {boot_time:.2f} seconds")
